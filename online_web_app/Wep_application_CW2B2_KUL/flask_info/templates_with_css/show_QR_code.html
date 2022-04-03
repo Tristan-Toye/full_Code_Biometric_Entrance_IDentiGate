@@ -1,0 +1,18 @@
+
+<head>
+
+
+{% extends "template.html" %}
+</head>
+<body>
+
+{%block content%}
+<section class="face_camera">
+    <p> Show QR code to camera <p>
+    <section class = "text-center">
+
+   <img id="qr_code" src="data:image/png;base64,{{image_data}}" />
+    </section>
+</section>
+{%endblock%}
+ 

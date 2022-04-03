@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+{% extends "template.html" %}
+    {% block content %}
+    <section id="header">
+        <header>
+            <h1>IDentiGate</h1>
+            <p>The key to security</p>
+        </header>
+
+    </section>
+
+<!-- <footer> <a class="button style2 scrolly" href="login.html">Log in</a> </footer> -->
+
+<div class="horizontal_inbetween">
+
+</div>
+
+<div class="table_container" >
+
+
+    <div id='grafiek' class="chart" style="height:600px;"></div>
+
+   <section class="text-center">
+    <button class="employee_button" onclick="show_hide()" > Raw data</button>
+   </section>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for a date" class="searchbar" style="display: none" >
+
+    <table id ='logs' data-name="Logs" style="display: none">
+        <thead>
+            <tr>
+                <!-- Your Columns HERE -->
+                <th scope="col" style="width:30%; text-align: center">Date entry</th>
+                <th scope="col" style="width:30%; text-align: center">Date exit</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for log in items['logs']%}
+        <tr>
+          <td style="width:30%; text-align: center">{{log.date_entry}}</td>
+            {% if log.date_exit%}
+            <td style="width:30%; text-align: center">{{log.date_exit}}</td>
+            {% else %}
+            <td style="width:30%; text-align: center"><a>still at work</a></td>
+
+            {%endif%}
+
+        </tr>
+         {% endfor %}
+
+        </tbody>
+
+      </table>
+
+
+</div>
+<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+  <!-- Socket.io-->
+  <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+<script>
+    function show_hide(){
+        var input = document.getElementById("myInput")
+        var table = document.getElementById("logs")
+        console.log(window.getComputedStyle(input).display)
+        if(window.getComputedStyle(input).display === 'none'){
+            console.log("in function")
+            input.style.display = "";
+        }else{
+            input.style.display ="none";
+        }
+        if(window.getComputedStyle(table).display === 'none'){
+
+            table.style.display ="";
+        }else{
+            table.style.display ="none";
+        }
+    }
+
+    var graph;
+    var data ;
+    var layout;
+    var socket = io();
+    console.log(socket.connected)
+    socket.on("connect", ()=>{
+            console.log("Connected...!", socket.connected);
+            socket.emit('request_graph', "{{items['user'].national_number}}")
+        });
+    socket.on("graph_logs", (data_graph)=>{
+        console.log("graph_logs", data_graph)
+        //graph = JSON.parse(data_graph.data);
+        graph = data_graph
+
+        data = JSON.parse(graph.data);
+        layout= JSON.parse(graph.layout);
+        const config = {
+          displayModeBar: false, // this is the line that hides the bar.
+        };
+        Plotly.newPlot('grafiek', data, layout,config);
+
+    });
+const all_tables = document.querySelectorAll("table[data-name=Logs]");
+    function myFunction() {
+  var input, filter, tr, td, i,j, row;
+
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    all_tables.forEach(function(table){
+
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+          row = tr[i].getElementsByTagName("td")
+          for(j = 0; j< row.length; j++){
+          td = row[j];
+          console.log(td,j)
+          if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.opacity = 1;
+
+
+              } else {
+                  tr[i].style.opacity = 0.12;
+
+              }
+          }
+      }
+      }
+
+  })}
+</script>
+{% endblock %}
+</body>
+</html>

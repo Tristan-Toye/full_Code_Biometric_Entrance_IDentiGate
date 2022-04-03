@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>IDentiGate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.poptrox-2.2.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/init.js"></script>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie/v8.css">
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="home">IDentiGate</a>
+    </div>
+    <nav>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> You are now part of our company </p>
+    <p> Welcome "{{session['user_to_create']}}" </p>
+
+    <div class="wrapper">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"
+             style="zoom: 3.2;  -moz-transform: scale(3.2); animation-delay: 1s;">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+    </div>
+    <div class="adding_to_system">
+        <div><p> Your data has been added to the system </p></div>
+    </div>
+
+</div>
+
+</body>
+</html>

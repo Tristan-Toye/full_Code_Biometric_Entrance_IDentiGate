@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+{% extends "template.html" %}
+    {% block content %}
+    <section id="header">
+        <header>
+            <h1>IDentiGate</h1>
+            <p>The key to security</p>
+        </header>
+
+    </section>
+
+<!-- <footer> <a class="button style2 scrolly" href="login.html">Log in</a> </footer> -->
+
+<div class="horizontal_inbetween">
+
+</div>
+
+<div class="table_container" >
+
+  <header class="login_header">
+      <h1 style="font-weight: 400;
+		font-size: 1.75em;
+		letter-spacing: 8px;
+		text-align: center;"> Employees </h1>
+  </header>
+    <br/>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for a name" class="searchbar" >
+
+
+
+<video id="video" autoplay></video>
+
+
+    {% for role in items%}
+        {% if items[role]%}
+
+<header class="login_header">
+      <h1 style="font-weight: 300;
+		font-size: 1.5em;
+		letter-spacing: 6px;
+		text-align: center;"> {{role}} </h1>
+  </header>
+
+
+      <table data-name="Employees" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <!-- Your Columns HERE -->
+                <th scope="col" style="width:20%; text-align:center"><h3>Name</h3></th>
+                <th scope="col" style="width:40%; text-align: center"><h3>Email</h3></th>
+              <th scope="col" style="width:20%; align-content: center"></th>
+                {%if current_user.roles[0].name == 'admin'%}
+              <th scope="col" style="width:20%; align-content: center"></th>
+                {%endif%}
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for person in items[role]%}
+        <tr>
+          <td style="width:20%; text-align: center; padding-bottom: 1em;">{{person.username}}</td>
+          <td style="width:40%; text-align: center; padding-bottom: 1em;">{{person.email_address}}</td>
+          <td style="width:20%; align-content: center; padding-bottom: 1em; padding-right: 1em;">
+              <form action="{{ url_for('logs_employee', national_number = person.national_number)}}">
+
+            <input class="employee_button" type="submit" value="More info" />
+            </form>
+
+          </td>
+            {%if current_user.roles[0].name == 'admin'%}
+          <td style="width:20%; align-content: center; padding-bottom: 1em;">
+
+            <button class="employee_button" onclick='function_remove("{{person.national_number}}","{{person.username}}");'>  Remove </button>
+          </td>
+            {%endif%}
+        </tr>
+        <tr></tr>
+         {% endfor %}
+
+        </tbody>
+
+      </table>
+    {%endif%}
+    {%endfor%}
+
+
+</div>
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+<script>
+
+
+
+
+document.getElementById("video").style.display='none';
+     const FPS = 3;
+        var counter = 0;
+        const Max_seconds = 7;
+        const Max_executions = FPS*Max_seconds;
+        var username;
+    var interval;
+    var national_number;
+    function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+    var socket = io();
+    const video = document.querySelector("video");
+        function getFrame()  {
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            return canvas.toDataURL("image/png");
+
+        }
+    function stop_camera(){
+            video.srcObject.getVideoTracks().forEach(track => {
+    track.stop();
+    video.srcObject.removeTrack(track);
+    });
+        }
+
+    function function_remove(national_number_on_click,_username) {
+	    counter=0;
+        national_number = national_number_on_click;
+        username = _username;
+
+        if ("{{current_user.roles[0].name}}" === 'admin') {
+            if (window.confirm("Are you sure you want to remove " + username)) {
+
+                if (navigator.mediaDevices.getUserMedia) {
+                    navigator.mediaDevices.getUserMedia({video: true})
+                        .then(function (stream) {
+                            video.srcObject = stream;
+
+                            video.play();
+
+                        })
+                }
+                interval = setInterval(() => {
+                    console.log("frame ready!");
+                    //console.log(getFrame())
+                    socket.emit("stream_remove_employee", getFrame());
+
+
+                }, 1000 / FPS);
+
+
+            }
+
+        }
+    }
+    socket.on("response_remove_employee", (result)=>{
+        if ("{{current_user.roles[0].name}}" === 'admin') {
+            console.log("Result:");
+            console.log(result);
+            counter++;
+
+            if(result === 'not_same_user'){
+                clearInterval(interval);
+                stop_camera();
+                console.log("not same user");
+                window.alert("Face recognition did not match credentials");
+
+            }
+            else if(result === 'no_face'){
+            console.log('waiting for face');
+            console.log("counter:");
+            console.log(counter);
+
+            }
+            else {
+                clearInterval(interval);
+                stop_camera();
+                socket.emit("remove_employee",national_number);
+                 if (window.confirm("Removing "+username+" confirmed")){
+
+                     location.reload();
+                 }
+
+
+
+            }
+            //window.location.replace('e-ID/'+result)
+            if(counter === Max_executions) {
+
+                clearInterval(interval);
+                stop_camera();
+                console.log("max_executions reached");
+                window.alert('Face recognition time out without finding a face');
+
+
+            }
+
+        }});
+
+
+
+
+<!-- --------------------------------------------------------------------------------- -->
+const all_tables = document.querySelectorAll("table[data-name=Employees]");
+    function myFunction() {
+  var input, filter, tr, td, i;
+
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    all_tables.forEach(function(table){
+
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.opacity = 1;
+
+
+          } else {
+            tr[i].style.opacity = 0.12;
+
+          }
+        }
+      }
+
+  })}
+
+</script>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy
+Flask-SocketIO
+Flask-User
+Flask-MQTT
+simple-websocket
+email_validator
+psycopg2

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>IDentiGate</title>
+<meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet" type="text/css">
+<!--[if lte IE 8]>
+<script src="css/ie/html5shiv.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="{{url_for('static', filename= 'css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.poptrox-2.2.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/init.js"></script>
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="css/ie/v8.css">
+<![endif]-->
+    <script src="/static/sources/jquery.min.js"></script>
+    <script>
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+        var counter = 0;
+    var display_message = " "
+    var element_info;
+    var timer_counter = 0;
+    var display_picture_counter_message = " "
+
+   function display() {
+        console.log("in the display function")
+        $.ajax({
+            type: "GET",
+            url: "face_display",
+            data: {}
+        }).done(function (result) {
+        console.log("display ajax done")
+        console.log("-------------")
+        console.log("dit is de display ajax result")
+        console.log(result)
+        console.log("-------------")
+        var counter = result['i']
+        
+            if (counter <= 5) {
+                display_picture_counter_message = "Taking face pictures. Keep Looking at the camera. ("+String(counter)+"/5)";
+               
+                
+                
+              
+                var element_counter_display = document.getElementById("pic_counter");
+           
+             
+                element_counter_display.style.display = ""
+                console.log(display_picture_counter_message);
+                
+                element_counter_display.innerHTML = display_picture_counter_message;
+                display()
+            }
+          
+        })
+    }
+
+    async function face() {
+    
+        timer_counter = 0
+        display();
+         $.ajax({
+                type: "GET",
+                url: "add_staff_f",
+                data: {"param": "text"}
+            }).done(function (result) {
+                console.log(result);
+                
+                var status = result['status'];
+                var message = result['message'];
+                if (status === "True") {
+                    window.location.replace('add_info_vein');
+                } else if (status === "False") {
+                    window.location.replace('add_staff_failed?message=' + message);
+                }
+            });
+            }
+        $(document).ready(function () {
+       
+        face();
+        });
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+        <div class="logo">
+          <a href="home">IDentiGate</a>
+    </div>
+<nav>
+</nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+<div class="face_camera">
+ <div>
+  </div>
+   <div id = "pulse"  >
+   
+    <div id="dots" class="dots">
+        <div class="snippet" data-title=".dot-pulse">
+            <div class="stage">
+                <div class="dot-pulse"></div>
+            </div>
+        </div>
+    </div>
+    <div id="pulsing_image_face" class="pulsing_image">
+        <img src="{{url_for('static', filename= 'images/camera_icon.png')}}" height="100%"/>
+    </div>
+   </div>
+
+    <p id="status"></p>
+    <p id="pic_counter"></p
+
+</body>
+</html>
+
+

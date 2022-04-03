@@ -1,0 +1,42 @@
+
+<section id="banner" style="height:150%">
+        {% extends "template.html" %}
+{%block content%}
+    
+            </br>
+</br>
+    </br>
+</br>
+  <header>
+    <h2>Please log in</h2>
+  </header>
+<section class = "text-center">
+        <div class="container">
+        <form method="POST" class="form-signin" >
+            {{ form.hidden_tag() }}
+
+
+
+            <br>
+            {{ form.user_change_email_address.label() }}
+            {{ form.user_change_email_address(class="form-control", placeholder="Email address") }}
+            {{ form.user_change_role.label() }}
+            {{ form.user_change_role(class="form-control", placeholder="Role") }}
+            {{ form.password.label() }}
+            {{ form.password(class="form-control", placeholder="Your password") }}
+
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+
+
+        </form>
+             </div>
+</section>
+
+
+    {% endblock%}
+</section>
+
+

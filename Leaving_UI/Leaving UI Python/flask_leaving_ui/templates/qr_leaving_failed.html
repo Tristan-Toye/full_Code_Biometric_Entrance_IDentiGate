@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>P&O3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{{url_for('static', filename= '/css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= '/css/style.css')}}">
+
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <script src="{{url_for('static', filename='/js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='/js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='/js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='/js/init.js')}}"></script>
+
+    <noscript>
+        <link rel="stylesheet" href="css/skel-noscript.css">
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
+
+    <script>
+        $(document).ready(function () {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const reason = urlParams.get('reason');
+            $('#parameter').text(reason)
+            setTimeout(function () {
+                document.getElementById("parameter").value = reason;
+                console.log(reason)
+                window.location.replace('home');
+            },6000);
+        });
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="home">IDentiGate</a>
+    </div>
+    <nav>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> Qr Authentication Failed </p>
+    <p> Reason : </p>
+    <p id="parameter"></p>
+    <p> Procedure will restart </p>
+    <div class="numbers" id="just_whitespace" style="float: left;"><p></p></div>
+    <div class="numbers" id="one" style="float: left;"><p>3</p></div>
+    <div class="numbers" id="two" style="float: left;"><p>2</p></div>
+    <div class="numbers" id="three" style="float: left;"><p>1</p></div>
+</div>
+</body>
+</html>

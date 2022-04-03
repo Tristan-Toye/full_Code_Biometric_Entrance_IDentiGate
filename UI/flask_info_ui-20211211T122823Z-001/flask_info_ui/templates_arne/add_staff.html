@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>P&O3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie/v8.css">
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="index">DumbleDoor</a>
+    </div>
+    <nav>
+        <a href="home">Home</a>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> Enter your name </p>
+    <div class="username_box">
+        <input type="text" class="text" name="name" placeholder="Username">
+    </div>
+    <p> Enter your password </p>
+    <div class="password_box">
+        <input type="text" class="text" name="pass" placeholder="Password">
+    </div>
+    <p> Confirm your password </p>
+    <div class="password_box">
+        <input type="text" class="text" name="pass" placeholder="Password">
+    </div>
+
+</div>
+
+</body>
+</html>

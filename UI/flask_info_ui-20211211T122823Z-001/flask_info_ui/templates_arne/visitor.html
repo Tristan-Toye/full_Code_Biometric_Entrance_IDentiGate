@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>P&O3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie/v8.css">
+    <![endif]-->
+
+
+    <script src="/static/sources/jquery.min.js"></script>
+    <script>
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "visitor_validation",
+                data: {}
+            }).done(function (result) {
+                console.log(result);
+                wait(3000);
+                var status = result['status'];
+                var message = result['reason'];
+                if (status === "True") {
+                    window.location.replace('visitor_success');
+                } else if (status === "False") {
+                    window.location.replace('visitor_failed?message=' + message);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="home">IDentiGate</a>
+    </div>
+    <nav>
+        <a href="home">Home</a>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> Scan your QR-code </p>
+    <div class="pulsing_image" style="padding: 2em;">
+        <img src="{{url_for('static', filename= 'images/qr_code.jpg')}}" height="100%"/>
+    </div>
+
+</div>
+
+</body>
+</html>

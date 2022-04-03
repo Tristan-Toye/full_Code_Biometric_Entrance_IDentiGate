@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+{% extends "template.html" %}
+    {% block content %}
+    <section id="header">
+        <header>
+            <h1>IDentiGate</h1>
+            <p>The key to security</p>
+        </header>
+
+    </section>
+
+<!-- <footer> <a class="button style2 scrolly" href="login.html">Log in</a> </footer> -->
+
+<div class="horizontal_inbetween">
+
+</div>
+
+<div class="table_container" >
+
+
+
+ <header class="login_header">
+      <h1 style="font-weight: 300;
+		font-size: 1.5em;
+		letter-spacing: 6px;
+		text-align: center;"> Present employees</h1>
+  </header>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for a name" class="searchbar" >
+
+
+
+      <table data-name="Employees" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <!-- Your Columns HERE -->
+                <th scope="col" style="width:20%; text-align:center"><h3>Name</h3></th>
+               
+            </tr>
+        </thead>
+        <tbody>
+{% for person in users%}
+        
+        <tr>
+          <td style="width:20%; text-align: center; padding-bottom: 1em;">{{person[0].username}}</td>
+          
+          
+        </tr>
+        <tr></tr>
+          
+    {%endfor%}
+        </tbody>
+
+      </table>
+
+
+
+</div>
+<script>
+
+
+
+<!-- --------------------------------------------------------------------------------- -->
+const all_tables = document.querySelectorAll("table[data-name=Employees]");
+    function myFunction() {
+  var input, filter, tr, td, i;
+
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    all_tables.forEach(function(table){
+
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.opacity = 1;
+
+
+          } else {
+            tr[i].style.opacity = 0.12;
+
+          }
+        }
+      }
+
+  })}
+
+</script>
+
+{% endblock %}
+</body>
+</html>

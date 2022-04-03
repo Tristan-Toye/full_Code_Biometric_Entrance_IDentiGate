@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>IDentiGate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+    <![endif]-->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.poptrox-2.2.js"></script>
+    <script src="js/skel.min.js"></script>
+    <script src="js/init.js"></script>
+    <script src="/static/sources/jquery.min.js"></script>
+    <script>
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "backup_qr_api",
+                data: {}
+            }).done(function (result) {
+                console.log(result);
+                wait(3000);
+                if (result === "True"){
+                    window.location.replace('backup_eid');
+                }
+                else{
+                    window.location.replace('home_failed');
+                }
+            });
+        });
+    </script>
+
+    <noscript>
+        <link rel="stylesheet" href="css/skel-noscript.css">
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie/v8.css">
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="home">IDentiGate</a>
+    </div>
+    <nav>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> Please scan your QR-code </p>
+    <div class="dots">
+        <div class="snippet" data-title=".dot-pulse">
+            <div class="stage">
+                <div class="dot-pulse"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pulsing_image" style="padding: 2em;">
+
+        <img src="{{url_for('static', filename= 'images/qr_code.jpg')}}" height="100%"/>
+    </div>
+
+</div>
+
+</body>
+</html>

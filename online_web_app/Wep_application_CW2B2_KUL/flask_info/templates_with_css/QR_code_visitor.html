@@ -1,0 +1,37 @@
+
+<section id="banner" style="height:150%">
+        {% extends "template.html" %}
+{%block content%}
+            </br>
+</br>
+    </br>
+</br>
+  <header>
+    <h2>Please give password</h2>
+  </header>
+<section class = "text-center">
+        <div class="container">
+        <form method="POST" class="form-signin" >
+            {{ form.hidden_tag() }}
+
+
+            <br>
+            {{ form.password.label() }}
+            {{ form.password(class="form-control", placeholder="Password") }}
+          
+          
+            {{ form.company.label() }}
+            {{ form.company(class="form-control", placeholder="Company") }}
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+
+
+        </form>
+             </div>
+</section>
+
+    {% endblock%}
+</section>
+

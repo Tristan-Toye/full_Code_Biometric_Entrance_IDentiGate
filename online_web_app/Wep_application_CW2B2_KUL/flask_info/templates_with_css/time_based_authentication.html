@@ -1,0 +1,37 @@
+
+<section id="banner" style="height:150%">
+        {% extends "template.html" %}
+{%block content%}
+            </br>
+</br>
+    </br>
+</br>
+  <header>
+    <h2>Please enter Pincode</h2>
+  </header>
+<section class = "text-center">
+        <div class="container">
+        <form method="POST" class="form-signin" >
+            {{ form.hidden_tag() }}
+
+
+            <br>
+            {{ form.time_based_pincode.label() }}
+            {{ form.time_based_pincode(class="form-control", placeholder="Pin") }}
+
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+
+
+        </form>
+             </div>
+
+
+</section>
+
+    {% endblock%}
+</section>
+
+

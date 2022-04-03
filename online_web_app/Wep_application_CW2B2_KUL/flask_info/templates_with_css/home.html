@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+
+
+</head>
+<body>
+{% extends "template.html" %}
+    {% block content %}
+
+<section id="header">
+  <header>
+    <h1>IDentiGate</h1>
+    <p>The key to security</p>
+  </header>
+   {% if current_user.is_authenticated %}
+  <footer> <a class="button style2 scrolly" href={{url_for('logout')}}>Log out</a> </footer>
+  {%else%}
+  <footer> <a class="button style2 scrolly" href={{url_for('login')}}>Log in</a> </footer>
+{%endif%}
+</section>
+
+
+<article id="first" class="container box style1 right"> <a href="{{url_for('static',filename = 'images/pic01.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/pic01.jpg')}}" alt=""></a>
+  <div class="inner">
+    <header>
+      <h2>Why IDentiGate</h2>
+    </header>
+       <p style="font-size: 12pt;">
+    The purpose of IDentiGate is identifying authorized users, this ensures secure access to important locations.<br />
+    A sophisticated system can confirm the identity of the user based on their physical features.<br />
+    This is called Biometric Identification.<br />
+    A handy User Interface guides you through the face recognition system and the vein scanning procedure.<br />
+    There is no need for keys or badges that could be stolen or lost.<br />
+    All data is encrypted before storage, further enhancing the security.<br />
+    An authorized user can always check who entered or left on the website.
+      </p>
+  </div>
+</article>
+
+
+
+<article class="container box style1 left"> <a href="{{url_for('static',filename = 'images/pic02.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/pic02.jpg')}}" alt=""></a>
+  <div class="inner" >
+    <header>
+      <h2>Our Team</h2>
+    </header>
+    <p>
+      Arne Van Damme<br />
+      Arne Putzeys  <br />
+      Ben Poelmans<br />
+      Dag Malstaf<br />
+      Marie-Johanna Schillemans<br />
+      Matisse Teuwen<br />
+      Tristan Toye<br />
+    </p>
+
+  </div>
+</article>
+
+
+
+<article class="container box style2" >
+  <header>
+    <h2>Pictures</h2>
+    <p> A glance into the development of our project.</p>
+  </header>
+  <div class="inner gallery">
+    <div class="row flush" style="margin:auto">
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Tristan_Ben_Arne.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Tristan_Ben_Arne.jpg')}}" alt="" title="Three brave programmers" style=" max-width: 400px;"></a></div>
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Marie_prototype.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Marie_prototype.jpg')}}" alt="" title="Testing the prototype" style=" max-width: 400px;"></a></div>
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Tristan_en_dag.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Tristan_en_dag.jpg')}}" alt="" title="Withstanding a flood of errors" style=" max-width: 400px;"></a></div>
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Tristan_thinking.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Tristan_thinking.jpg')}}" alt="" title="Pondering Programmer" style=" max-width: 400px;"></a></div>
+    </div>
+    <div class="row flush" style="margin:auto">
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Arne_en_Ben.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Arne_en_Ben.jpg')}}" alt="" title="Encryption at its finest" style=" max-width: 400px;"></a></div>
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Matisse.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Matisse.jpg')}}" alt="" title="DumbleDoor" style=" max-width: 400px;"></a></div>
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Code_lines.png')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Code_lines.png')}}" alt="" title="Many hours of coding" style=" max-width: 400px;"></a></div>
+      <div class="3u"><a href="{{url_for('static',filename = 'images/fulls/Paper_scheme.jpg')}}" class="image full"><img src="{{url_for('static',filename = 'images/thumbs/Paper_scheme.jpg')}}" alt="" title="Planning out our project" style=" max-width: 400px;"></a></div>
+    </div>
+  </div>
+</article>
+
+
+{% endblock %}
+</body>
+</html>

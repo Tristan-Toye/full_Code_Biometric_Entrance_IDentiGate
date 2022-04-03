@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>IDentiGate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename= '/css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= '/css/style.css')}}">
+
+    <script src="{{url_for('static', filename='/js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='/js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='/js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='/js/init.js')}}"></script>
+
+
+    <script>
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+
+        $(document).ready(function () {
+            console.log("in ajax")
+            $.ajax({
+                type: "GET",
+                url: "qrloop",
+                data: {}
+            }).done(function (result) {
+                console.log(result);
+                var status = result['message'];
+                var reason = result['reason'];
+                wait(3000);
+                if (status === "True"){
+                    window.location.replace('qr_leaving_success');
+                }
+                else{
+                    window.location.replace('qr_leaving_failed?reason=' + reason);
+                }
+            });
+        });
+    </script>
+
+    <noscript>
+        <link rel="stylesheet" href="css/skel-noscript.css">
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie/v8.css">
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="home">IDentiGate</a>
+    </div>
+    <nav>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> Please scan your QR-code </p>
+    <div class="dots">
+        <div class="snippet" data-title=".dot-pulse">
+            <div class="stage">
+                <div class="dot-pulse"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pulsing_image" style="padding: 2em;">
+
+        <img src="{{url_for('static', filename= '/images/qr_code.jpg')}}" height="100%"/>
+    </div>
+
+</div>
+
+</body>
+</html>

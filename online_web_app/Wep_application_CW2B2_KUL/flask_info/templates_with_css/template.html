@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=450, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet" type="text/css">
+
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename = 'js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static',filename = 'js/skel.min.js')}}"></script>
+    <script src="{{url_for('static',filename = 'js/init.js')}}"></script>
+
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/skel-noscript.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/ie/v8.css')}}">
+
+    <!--[if lte IE 8]>
+    <script src="{{url_for('static',filename = 'css/ie/html5shiv.js')}}"></script>
+    <![endif]-->
+
+   <link rel="stylesheet" type="text/css" href="{{url_for('static',filename = 'css/style.css')}}">
+	<link rel="stylesheet" media="only screen and (max-width: 450px)" href="{{url_for('static',filename = 'css/style-mobile.css')}}" />
+
+
+    <title>IDentiGate</title>
+
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories = true) %}
+
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}}" id="{{message[0]}}">
+
+                    <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close" onclick="myFunction('{{message[0]}}')">
+                        <span aria-hidden="true">&times;</span>
+                        <script >
+
+		                    function myFunction(divID)
+		                    {
+			                const  element = document.getElementById(divID);
+                            element.remove()
+	                            	}
+
+
+                        </script>
+
+                    </button>
+                    {% if message is string%}
+                    {{message}}
+                    {% else %}
+                    {{message[0]}}
+                    {% endif%}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <nav class="dropdown">
+        <ul>
+            <li> <button class="dropdown_button"><img src="{{url_for('static',filename = 'images/3_lines.png')}}"  height="75px"/></button>
+                <ul>
+                <li><a href="{{ url_for('home') }}">Home</a> </li>
+
+                {% if current_user.is_authenticated %}
+                    {% if current_user.roles[0].name == 'admin'%}
+                <li><a href="{{ url_for('register_employee')}}">Register employee </a></li>
+
+                <li><a href="{{url_for('employee_list')}}">List employees </a></button></li>
+                <li><a href="{{url_for('change_role')}}">Change role of employee </a></li>
+		<li><a href="{{ url_for('make_visitor_QR')}}">QR for visistors </a></li>
+                    {%endif%}
+                       {% if current_user.roles[0].name == 'recruiter'%}
+                <li><a href="{{ url_for('register_staff')}}">Register_staff </a></li>
+		<li><a href="{{ url_for('make_visitor_QR')}}">QR for visistors </a></li>
+                    {%endif%}
+                    {% if current_user.roles[0].name == 'security'%}
+                <li><a href="{{url_for('employee_list')}}">List employees </a></button></li>
+		<li><a href="{{ url_for('make_visitor_QR')}}">QR for visistors </a></li>
+                    {%endif%}
+                <li><a href="{{url_for('QR_code_self_request')}}">Make QR code for entrance </a></li>
+		<li><a href="{{url_for('QR_code_leave')}}">Make QR code for exit </a></li>
+                <li><a href="{{url_for('logs_employee', national_number = current_user.national_number)}}">Personal Logs</a></li>
+		<li><a href="{{url_for('present_employees')}}">Present employees</a></li>
+                <li><a href="{{url_for('logout')}}">Logout </a></li>
+                {%else%}
+
+                <li><a href="{{ url_for('login')}}">Login </a></li>
+
+                 {% endif %}
+
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+{% block content %}
+    {% endblock %}
+</body>
+</html>

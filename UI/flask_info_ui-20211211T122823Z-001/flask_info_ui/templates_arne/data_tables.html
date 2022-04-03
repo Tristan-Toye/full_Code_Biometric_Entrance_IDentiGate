@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet" type="text/css">
+    <title>login</title>
+</head>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery.poptrox-2.2.js"></script>
+<script src="../static/js/skel.min.js"></script>
+<script src="../static/js/init.js"></script>
+
+<noscript>
+<link rel="stylesheet" href="css/skel-noscript.css">
+<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ie/v8.css">
+</noscript>
+
+
+<body>
+
+    <section id="header">
+        <header>
+            <h1>DumbleDoor</h1>
+            <p>Not just another Door</p>
+        </header>
+
+    </section>
+
+<!-- <footer> <a class="button style2 scrolly" href="login.html">Log in</a> </footer> -->
+
+<div class="horizontal_inbetween">
+
+</div>
+
+<div class="table_container" >
+
+  <header class="login_header">
+      <h1 style="font-weight: 400;
+		font-size: 1.75em;
+		letter-spacing: 8px;
+		text-align: center;"> People inside </h1>
+
+<input type="text" id="people_inside" onkeyup="function_people_inside()" placeholder="Search for a name" class="searchbar" >
+
+<script>
+function function_people_inside() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('people_inside');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("table_people_inside");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+<ul id="table_people_inside" class="data_table">
+        <li> <a class="employee_button" href="personal_log.html">Arne</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Tristan</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Dag</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Marie</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Arne</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Matisse</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Ben</a> </li>
+</ul>
+  </header>
+
+</div>
+
+
+<div class="horizontal_inbetween">
+
+</div>
+
+<div class="table_container">
+
+      <header class="login_header">
+      <h1 style="font-weight: 400;
+		font-size: 1.75em;
+		letter-spacing: 8px;
+		text-align: center;"> People still expected </h1>
+
+<input type="text" id="people_still_expected" onkeyup="function_people_still_expected()" placeholder="Search for a name" class="searchbar">
+
+<script>
+function function_people_still_expected() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('people_still_expected');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("table_people_still_expected");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+<ul id="table_people_still_expected" class="data_table">
+        <li> <a class="employee_button" href="personal_log.html">Arne</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Tristan</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Dag</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Marie</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Arne</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Matisse</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Ben</a> </li>
+</ul>
+  </header>
+</div>
+
+
+<div class="horizontal_inbetween">
+
+</div>
+
+<div class="table_container">
+
+  <header>
+      <h1 style="font-weight: 400;
+		font-size: 1.75em;
+		letter-spacing: 8px;
+		text-align: center;"> All employees </h1>
+
+<input type="text" id="all_employees" onkeyup="function_all_employees()" placeholder="Search for a name" class="searchbar">
+
+<script>
+function function_all_employees() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('all_employees');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("table_all_employees");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+<ul id="table_all_employees" class="data_table">
+        <li> <a class="employee_button" href="personal_log.html">Arne</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Tristan</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Dag</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Marie</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Arne</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Matisse</a> </li>
+        <li> <a class="employee_button" href="personal_log.html">Ben</a> </li>
+</ul>
+  </header>
+</div>
+
+
+<div class="arrow_inbetween">
+
+</div>
+
+
+</body>
+</html>

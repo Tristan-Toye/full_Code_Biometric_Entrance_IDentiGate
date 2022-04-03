@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+
+{% extends "template.html" %}
+</head>
+<body>
+
+{%block content%}
+<div class="face_camera">
+    <p> Please look in the camera </p>
+
+    <div class="dots">
+        <div class="snippet" data-title=".dot-pulse">
+          <div class="stage">
+            <div class="dot-pulse"></div>
+          </div>
+        </div>
+    </div>
+    <div class="pulsing_image" style="padding: 1em;">
+        <img src="{{url_for('static',filename='images/camera_icon.png')}}" height="100%"/>
+    </div>
+    <video id="video" autoplay></video>
+</div>
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+<script>
+    document.getElementById("video").style.display='none';
+     const FPS = 3;
+        var counter = 0;
+        const Max_seconds = 7;
+        const Max_executions = FPS*Max_seconds;
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+
+
+
+        var socket = io();
+
+        socket.on("connect", ()=>{
+            console.log("Connected...!", socket.connected);
+
+        });
+
+
+        // get video dom element
+        const video = document.querySelector("video");
+        function getFrame()  {
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            return canvas.toDataURL("image/png");
+
+        }
+        // request access to webcam
+        // navigator.mediaDevices.getUserMedia({video: {width: 426, height: 240}}).then((stream) => video.srcObject = stream);
+        if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            video.srcObject = stream;
+
+            video.play();
+
+
+        })
+        .catch(function (err0r) {
+            console.log(err0r);
+            console.log("Something went wrong!");
+
+        });
+        }
+        // returns a frame encoded in base64
+
+
+        console.log(socket.connected)
+
+        var interval = setInterval(() => {
+                console.log("frame ready!");
+                //console.log(getFrame())
+                socket.emit("stream", getFrame());
+
+
+            }, 1000 / FPS);
+
+        socket.on("face_recognition", (result)=>{
+            console.log("Result:");
+            console.log(result);
+            counter++;
+
+            if(result === 'not_same_user'){
+                wait(500) // giving time for flash to occur
+                window.location.replace('home')
+
+            }
+            else if(result === 'no_face'){
+            console.log('waiting for face');
+            console.log("counter:");
+            console.log(counter);
+
+            }
+            else {
+                wait(200) // giving time for session to catch up
+                window.location.replace('/home/time_based_authentication');}
+            //window.location.replace('e-ID/'+result)
+            if(counter === Max_executions) {
+                clearInterval(interval)
+                console.log("max_executions reached");
+                window.alert('Face recognition timeout without finding a face')
+                window.location.replace('/home');
+
+            }
+
+        });
+
+</script>
+{% endblock%}
+</body>
+</html>

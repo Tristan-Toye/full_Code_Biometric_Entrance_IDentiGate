@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>IDentiGate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+
+    <![endif]-->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+
+    <script src="/static/sources/jquery.min.js"></script>
+    <script>
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "entrance_sender",
+                data: {}
+            }).done(function (result) {
+                console.log(result);
+                var role = result['role'];
+                element_visitor = document.getElementById("visitor");
+                element_add_staff = document.getElementById("add_staff");
+                if (role === 'admin' || role === 'recruiter') {
+                    element_add_staff.style.visibility = 'visible';
+                } if (role !== 'staff') {
+                    element_visitor.style.visibility = 'visible';
+                }
+            });
+        });
+
+
+    </script>
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie/v8.css">
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo" id="home">
+        <a href="home">IDentiGate</a>
+    </div>
+    <nav>
+        <a style="visibility:hidden" id="visitor" href="visitor">Visitor</a>
+        <a style="visibility:hidden" id="add_staff" href="add_staff_eid">Add staff</a>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> Identification successful </p>
+    <p> Press the green button to open the door </p>
+
+    <a class="wrapper" href="door_open" style="border-bottom: none;">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"
+             style="zoom: 3.2;  -moz-transform: scale(3.2); animation-delay: 1s;">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+    </a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+body {
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  background-color: red;
+
+}
+
+p{
+  content:"";
+  width: 100px;
+  height: 100px;
+  animation-name: countdown;
+  animation-duration: 5s;
+
+}
+
+@keyframes countdown {
+
+  0% {
+    content: "5";
+  }
+  20% {
+    content: "4";
+  }
+  40% {
+    content: "3";
+  }
+  60% {
+    content: "2";
+  }
+  80% {
+    content: "1";
+  }
+  100% {
+    content: "0";
+  }
+}

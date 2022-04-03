@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>IDentiGate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- for phones -->
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style-wide.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+
+    <!--[if lte IE 8]>
+    <script src="css/ie/html5shiv.js"></script>
+
+    <![endif]-->
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/jquery.poptrox-2.2.js')}}"></script>
+    <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/init.js')}}"></script>
+
+    <script src="/static/sources/jquery.min.js"></script>
+    <script>
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do {
+                d2 = new Date();
+            }
+            while (d2 - d < ms);
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "door_open_api",
+                data: {}
+            }).done(function (result) {
+                console.log(result);
+            });
+        });
+
+
+    </script>
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/ie/v8.css">
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo" id="home">
+        <a href="home">IDentiGate</a>
+    </div>
+    <nav>
+        <a style="visibility:hidden" id="visitor" href="visitor">Visitor</a>
+        <a style="visibility:hidden" id="add_staff" href="add_staff_eid">Add staff</a>
+    </nav>
+    <section>
+        <a href="home">Cancel</a>
+    </section>
+</div>
+<div class="arrow_inbetween">
+
+</div>
+
+<div class="face_camera">
+    <p> The door is now open </p>
+    <p> You may enter </p>
+
+    <div class="pulsing_image" style="padding: auto;">
+        <a href="home" style="border-bottom: none;"><img src="{{url_for('static', filename= 'images/home_button.png')}}" height="100%"/></a>
+    </div>
+</div>
+
+</body>
+</html>
