@@ -1,10 +1,6 @@
-# full_Code_Biometric_Entrance_IDentiGate
-This repository has the complete code of our second bachelor P&O 3 OPO project.
-# Smart Biometric Entrance 
-This project is presented by the KULeuven as a project part of the course P&03. 
-*** ***
-# Smart-biometrcis-entrance
-We aim to make a project with biometric authentication linked to an sql database and an online website using heroku.
+# full Code Biometric Entrance IDentiGate
+This repository has the complete code of our second bachelor P&O3 project at the KU Leuven. 
+In this project me aim to make a high-security entrance with biometric authentication linked to an sql database and an online website using heroku.
 *** ***
 # overview
 *** ***
